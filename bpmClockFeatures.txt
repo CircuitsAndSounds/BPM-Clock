@@ -1,0 +1,13 @@
+Features: 
+- Kosmo (LookMumNoComputer) Format (200mm x 100mm (LxW))
+- +12V Supply Voltage
+- 6.35mm(1/4") +10V Gate Outputs with indication LEDs
+- Custom tempo control between 60 - 160 BPM via rotary encoder 
+- Auto/Manual modes via switches
+- Inbuilt clock divider with multiple division programs such as odd numbers, prime numbers, Fibonacci sequence etc allowing for wild rhythms that couldn't be achieved with a standard clock divider
+- Uses standard "off-the-shelf" components (TM1637 4-Digit display can be found for a cheap price on AliExpress)
+- User friendly Arduino based software
+- All schematics & design drawings supplied
+- Completely open source - if you want to make your own version of the BPM clock or modify the module in any way, please feel free to do so
+- PCB/Front Panel Sets Available at: 
+
