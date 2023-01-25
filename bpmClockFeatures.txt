@@ -7,6 +7,6 @@ Features:
 - Uses standard "off-the-shelf" components (TM1637 4-Digit display can be found for a cheap price on AliExpress)
 - User friendly Arduino based software
 - Completely open source - if you want to make your own version of the BPM clock or modify the module in any way, please feel free to do so!
-- PCB/front panel sets available at: 
-- Full video tutorial available at:
+- PCB/front panel sets available at: https://www.etsy.com/au/listing/1401800775/kosmo-format-bpm-clockclock-divider-pcb
+- Full video tutorial available at: https://youtu.be/__zjDUrX9JY
 
