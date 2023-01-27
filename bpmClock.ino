@@ -1,4 +1,4 @@
-//INCLUDE TM137 4-DIGIT DISPLAY MODULE LIBRARY
+//INCLUDE TM1637 4-DIGIT DISPLAY MODULE LIBRARY
 #include <TM1637.h>
 
 // Instantiation and pins configurations
