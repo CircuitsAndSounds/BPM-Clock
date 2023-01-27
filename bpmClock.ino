@@ -1,3 +1,4 @@
+//INCLUDE TM137 4-DIGIT DISPLAY MODULE LIBRARY
 #include <TM1637.h>
 
 // Instantiation and pins configurations
@@ -52,14 +53,12 @@ bool clockState6 = LOW;             // clockState1 used to set the LED
 bool clockState7 = LOW;             // clockState1 used to set the LED
 bool clockState8 = LOW;             // clockState1 used to set the LED
 
-
 byte prog = 0;
 
 bool modeSwitch = 0;
 byte mode = 0;
 
 bool pulseSwitchIn = 0;
-
 
 const static int pgm[24][7] = {
   {2, 4, 8, 16, 32, 64, 128},          {3, 5, 7, 9, 11, 13, 15},        {2, 3, 4, 5, 6, 7, 8},                     {3, 5, 8, 13, 21, 34, 55},
@@ -68,13 +67,7 @@ const static int pgm[24][7] = {
   {14, 51, 124, 245, 426, 679, 1016},  {2, 4, 8, 12, 24, 48, 72},       {16, 22, 34, 36, 46, 56, 64},              {72, 108, 200, 288, 392, 432, 500},
   {6, 21, 28, 301, 325, 496, 697},     {2, 8, 20, 28, 50, 82, 126},     {21, 33, 57, 69, 77, 93, 129},             {2, 3, 2, 5, 6, 7, 2},
   {30, 42, 66, 70, 78, 102, 105},      {9, 45, 55, 99, 297, 703, 999},  {70, 836, 4030, 5830, 7192, 7912, 9272},   {15, 34, 65, 111, 175, 260, 369},
-
-
 };
-
-
-
-
 
 void setup() {
 
@@ -95,7 +88,6 @@ void setup() {
   pinMode(14, INPUT_PULLUP); //MODE SWITCH
   pinMode(15, INPUT_PULLUP); //PULSE SWITCH
 
-
 }
 
 
@@ -104,14 +96,12 @@ void loop() {
   segDisplay();
   clockOut();
   resetcntr();
-
 }
 
 
 void hardwareCheck() {
 
   enc_switch_in  = !digitalRead(10);
-
 
   if ((enc_switch_in == true) && (enc_switch_latch == false)) {  //Count Times Button Pressed
     enc_switch_counter++;
@@ -122,11 +112,9 @@ void hardwareCheck() {
     enc_switch_latch = false;
   }
 
-
   if ((millis() >= enc_switch_timer + DOUBLE_CLICK_TIME) && (enc_switch_in == false)) {  //Reset Count when no Button Pressed
     enc_switch_counter = 0;
   }
-
 
   if ((enc_switch_in == false) && (enc_switch_counter == 0)) {
     enc_switch = 0;
@@ -142,7 +130,7 @@ void hardwareCheck() {
   }
 
 
-  if (enc_switch  == 0) {//GLOBAL BPM COARSE
+  if (enc_switch  == 0) {//GLOBAL BPM COARSE - INCREASE/DECREASE BPM BY 5 BEATS
     newPosition1 = myEnc.read();
     if ( (newPosition1 - 3) / 4  > oldPosition1 / 4) {
       oldPosition1 = newPosition1;
@@ -166,8 +154,7 @@ void hardwareCheck() {
     }
   }
 
-
-  else if (enc_switch  == 1) {//GLOBAL BPM FINE
+  else if (enc_switch  == 1) {//GLOBAL BPM FINE - INCREASE/DECREASE BPM BY 1 BEAT
 
     newPosition2 = myEnc.read();
     if ( (newPosition2 - 3) / 4  > oldPosition2 / 4) {
@@ -191,7 +178,6 @@ void hardwareCheck() {
       BPM = 60;
     }
   }
-
 
   else if (enc_switch  == 2) {//DIVISION PROGRAM
     counter = 0;
@@ -218,17 +204,15 @@ void hardwareCheck() {
     }
   }
 
-
   modeSwitch = !digitalRead(14);
 
-  if (modeSwitch == LOW) {
-    mode = 0; //MANUAL PULSE MODE
+  if (modeSwitch == LOW) { //MANUAL PULSE MODE
+    mode = 0; 
   }
 
   else if (modeSwitch == HIGH) { //AUTO MODE
     mode = 1;
   }
-
 
 }
 
@@ -237,31 +221,27 @@ void segDisplay() {
 
   if (enc_switch == 0) {
     if (BPM <= 99) {
-      tm.display(BPM, false, false, 2);
+      tm.display(BPM, false, false, 2); //BLANK FIRST 2 DIGITS
     }
 
     else if (BPM <= 160) {
-      tm.display(BPM, false, false, 1);
+      tm.display(BPM, false, false, 1); //BLANK FIRST DIGIT
     }
   }
-
 
   else if (enc_switch == 1) {
     if (BPM <= 99) {
-      tm.display(BPM, false, false, 2);
+      tm.display(BPM, false, false, 2); //BLANK FIRST 2 DIGITS
     }
 
     else if (BPM <= 160) {
-      tm.display(BPM, false, false, 1);
+      tm.display(BPM, false, false, 1); //BLANK FIRST DIGIT
     }
   }
 
-
-
   else if (enc_switch == 2) {
 
-    switch (prog) {
-
+    switch (prog) { //DISPLAY TIMING PROGRAM
       case 0:
         tm.display("1,2,4,8,16,32,64,128")->scrollLeft(150);
         break;
@@ -357,9 +337,7 @@ void segDisplay() {
       case 23:
         tm.display("1,15,34,65,111,175,260,369")->scrollLeft(150);
         break;
-
-
-
+        
       default:
         tm.display("1,2,4,8,16,32,64,128")->scrollLeft(150);
         break;
@@ -368,8 +346,6 @@ void segDisplay() {
   }
 }
 
-
-
 void clockOut() {
 
   bpmDelay = ((msPerMin / BPM) / 8);
@@ -377,9 +353,7 @@ void clockOut() {
   //    /4 = EIGHTH NOTE BEAT
   //    /8 = SIXTEENTH NOTE BEAT
 
-
   currentTime = millis();
-
 
   if (mode == LOW) { //MANUAL PULSE MODE
     counter = 0; //RESET COUNTER
@@ -396,7 +370,6 @@ void clockOut() {
   }
 
   else if (mode == 1) { //AUTO MODE
-
     if (currentTime - previousTime >= bpmDelay) { //MASTER BPM
 
       counter++; //ADVANCE COUNTER
@@ -413,63 +386,61 @@ void clockOut() {
       if (counter % pgm[prog][0] == 0) { //BPM DIVIDED BY PGM SEQUENCE AT INDEX 0
         // if the LED is off turn it on and vice-versa:
         clockState2 = !clockState2;
-        // set the LED with the clockState1 of the variable:
+        // set the LED with the clockState2 of the variable:
         digitalWrite(clockLed2, clockState2);
       }
 
       if (counter % pgm[prog][1] == 0) { //BPM DIVIDED BY PGM SEQUENCE AT INDEX 1
         // if the LED is off turn it on and vice-versa:
         clockState3 = !clockState3;
-        // set the LED with the clockState1 of the variable:
+        // set the LED with the clockState3 of the variable:
         digitalWrite(clockLed3, clockState3);
       }
 
       if (counter % pgm[prog][2] == 0) { //BPM DIVIDED BY PGM SEQUENCE AT INDEX 2
         // if the LED is off turn it on and vice-versa:
         clockState4 = !clockState4;
-        // set the LED with the clockState1 of the variable:
+        // set the LED with the clockState4 of the variable:
         digitalWrite(clockLed4, clockState4);
       }
 
       if (counter % pgm[prog][3] == 0) { //BPM DIVIDED BY PGM SEQUENCE AT INDEX 3
         // if the LED is off turn it on and vice-versa:
         clockState5 = !clockState5;
-        // set the LED with the clockState1 of the variable:
+        // set the LED with the clockState5 of the variable:
         digitalWrite(clockLed5, clockState5);
       }
 
       if (counter % pgm[prog][4] == 0) { //BPM DIVIDED BY PGM SEQUENCE AT INDEX 4
         // if the LED is off turn it on and vice-versa:
         clockState6 = !clockState6;
-        // set the LED with the clockState1 of the variable:
+        // set the LED with the clockState6 of the variable:
         digitalWrite(clockLed6, clockState6);
       }
 
       if (counter % pgm[prog][5] == 0) { //BPM DIVIDED BY PGM SEQUENCE AT INDEX 5
         // if the LED is off turn it on and vice-versa:
         clockState7 = !clockState7;
-        // set the LED with the clockState1 of the variable:
+        // set the LED with the clockState7 of the variable:
         digitalWrite(clockLed7, clockState7);
       }
 
       if (counter % pgm[prog][6] == 0) { //BPM DIVIDED BY PGM SEQUENCE AT INDEX 6
         // if the LED is off turn it on and vice-versa:
         clockState8 = !clockState8;
-        // set the LED with the clockState1 of the variable:
+        // set the LED with the clockState8 of the variable:
         digitalWrite(clockLed8, clockState8);
       }
     }
   }
 }
 
-
-
 void resetcntr() {
 
   if (counter == 0) {
-
+    
     currentTime = millis();
-
+    
     clockState2 = LOW;
     clockState3 = LOW;
     clockState4 = LOW;
@@ -485,6 +456,5 @@ void resetcntr() {
     digitalWrite(clockLed6, clockState6);
     digitalWrite(clockLed7, clockState7);
     digitalWrite(clockLed8, clockState8);
-
   }
 }
