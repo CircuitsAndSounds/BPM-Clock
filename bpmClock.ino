@@ -1,4 +1,4 @@
-//INCLUDE TM1637 4-DIGIT DISPLAY MODULE LIBRARY
+//INCLUDE TM1637 4-DIGIT DISPLAY MODULE LIBRARY - FOUND @ https://github.com/AKJ7/TM1637
 #include <TM1637.h>
 
 // Instantiation and pins configurations
